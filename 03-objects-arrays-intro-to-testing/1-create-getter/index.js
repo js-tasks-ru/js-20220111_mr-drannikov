@@ -5,16 +5,14 @@
  */
 export function createGetter(path) {
   const arrKeys = path.split('.');
-  let count = 0;
 
-  const getter = (obj) => {
+  const getter = (obj, count = 0) => {
     if (typeof obj !== 'object') {
       return obj;
     }
     const key = arrKeys[count];
     const newObj = obj[key];
-    count += 1;
-    return getter(newObj);
+    return getter(newObj, count + 1);
   };
 
   return getter;
